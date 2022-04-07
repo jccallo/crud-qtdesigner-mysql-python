@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>formEmpleados</class>
+ <class>FormularioEmpleado</class>
  <widget class="QMainWindow" name="FormularioEmpleado">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>412</width>
-    <height>393</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -123,7 +123,10 @@
      <string>TARIFA POR HORA:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="txtCodigo">
+   <widget class="QLineEdit" name="txtId">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -131,6 +134,9 @@
       <width>131</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="txtNombre">
@@ -179,7 +185,7 @@
       <x>20</x>
       <y>180</y>
       <width>371</width>
-      <height>192</height>
+      <height>291</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -197,35 +203,65 @@
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustIgnored</enum>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
     <property name="showGrid">
      <bool>true</bool>
     </property>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>31</number>
     </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>23</number>
+    </attribute>
     <column>
      <property name="text">
       <string>Codigo</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
      </property>
     </column>
     <column>
      <property name="text">
       <string>Nombre</string>
      </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
     </column>
     <column>
      <property name="text">
       <string>DNI</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
      </property>
     </column>
     <column>
      <property name="text">
       <string>N° Horas</string>
      </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
     </column>
     <column>
      <property name="text">
       <string>Tarifa x Hora</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
      </property>
     </column>
    </widget>

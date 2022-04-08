@@ -18,7 +18,7 @@ class FormularioEmpleados(QMainWindow):
         uic.loadUi("./view/FormularioEmpleado.ui", self)  # cargamos la interfaz
         self.empleadoController = EmpleadoController()  # instanciamos el contralador
         
-        # botones
+        # botones y los eventos
         self.btnListar.clicked.connect(self.listar)
         self.btnAgregar.clicked.connect(self.agregar)
         self.btnActualizar.clicked.connect(self.actualizar)
@@ -26,11 +26,15 @@ class FormularioEmpleados(QMainWindow):
         self.btnNuevo.clicked.connect(self.nuevo)
         self.tbwListado.clicked.connect(self.llenarCampos)
 
+        # damos tamaño a las columnas de la tabla
         for indice, ancho in enumerate((50, 108, 73, 60, 78), start=0):
             self.tbwListado.setColumnWidth(indice, ancho)
 
     def listar(self):
-        empleados = self.empleadoController.obtenerTodos()
+        # obtenemos los empleados
+        empleados = self.empleadoController.obtenerTodos() 
+
+        # cargamos los empleados en la tabla
         fila = 0
         for empleado in empleados:
             self.tbwListado.setRowCount(fila + 1)
@@ -42,30 +46,54 @@ class FormularioEmpleados(QMainWindow):
             fila += 1
         
     def agregar(self):
+        # instanciamos un objeto empleado y setemos los campos necesario
         empleado = Empleado()
         empleado.setNombre(self.txtNombre.text())
         empleado.setDni(self.txtDni.text())
         empleado.setNumeroHoras(int(self.spbNumeroHoras.text()))
         empleado.setTarifaHora(float(self.spbTarifaHora.text()))
+
+        # agregamos un empleado
         self.empleadoController.agregar(empleado)
+
+        # listamos los empleados en la tabla 
         self.listar()
+
+        # limpiamos los campos
         self.nuevo()
 
     def actualizar(self):
+        # verificamos si el campo de Id este llenado con un numero
         if not self.txtId.text().isnumeric():
             return 
+
+        # obtenemos el empleado con los datos de los campos
         empleado = self.obtenerActualEmpleado()
+
+        # actualizamos un empleado
         self.empleadoController.actualizar(empleado)
+
+        # listamos los empleados en la tabla 
         self.listar()
 
     def borrar(self):
+        # verificamos si el campo de Id este llenado con un numero
         if not self.txtId.text().isnumeric():
             return 
+
+        # obtenemos el empleado con los datos de los campos
         empleado = self.obtenerActualEmpleado()
+
+        # borramos empleado
         self.empleadoController.borrar(empleado)
+
+        # listamos los empleados en la tabla 
         self.listar()
+
+        # listamos los empleados en la tabla 
         self.nuevo()    
 
+    # limpia y setea todos los campos del formulario
     def nuevo(self):
         self.txtId.clear()
         self.txtNombre.clear()
@@ -74,6 +102,7 @@ class FormularioEmpleados(QMainWindow):
         self.spbTarifaHora.setValue(0.0)
         self.txtId.setFocus()
 
+    # setea un objeto con los datos del campo del formulario
     def obtenerActualEmpleado(self):
         empleado = Empleado()
         empleado.setId(int(self.txtId.text()))
@@ -83,6 +112,7 @@ class FormularioEmpleados(QMainWindow):
         empleado.setTarifaHora(float(self.spbTarifaHora.value()))
         return empleado
 
+    # llena los el formulario al hacer click a una fila de la tabla
     def llenarCampos(self):
         filaSeleccionada = self.tbwListado.selectedItems()
         self.txtId.setText(filaSeleccionada[0].text())
@@ -91,8 +121,9 @@ class FormularioEmpleados(QMainWindow):
         self.spbNumeroHoras.setValue(int(filaSeleccionada[3].text()))
         self.spbTarifaHora.setValue(float(filaSeleccionada[4].text()))
 
+# este es el archivo principal donde ejecutamos nuestra aplicacion
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    objeto = FormularioEmpleados()
-    objeto.show()
-    sys.exit(app.exec_())
+    app = QApplication(sys.argv) # se crea la aplicacion
+    objeto = FormularioEmpleados() # se crea el objeto de la clase
+    objeto.show() # hacemos que se muestre
+    sys.exit(app.exec_()) # para ejecutar y cerrar la aplicacion
